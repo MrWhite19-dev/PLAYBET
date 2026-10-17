@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PLAYBET — Défis Gaming</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo"><span>⚡</span> PLAY<span>BET</span></div>
+    <nav class="desktop-nav">
+      <a class="active" href="#accueil">Accueil</a><a href="#jeux">Jeux</a><a href="#defis">Défis</a><a href="#recompenses">PX & récompenses</a><a href="#classement">Classement</a><a href="#aide">Aide</a>
+    </nav>
+    <div class="top-actions">
+      <div class="balance">🪙 <strong id="balance">50 000</strong> PX</div>
+      <button class="btn btn-outline account-btn" onclick="openAuth()" id="accountBtn">Se connecter</button><button class="btn btn-red create-top" onclick="openModal()">Créer un défi</button>
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <div id="drawerOverlay" class="drawer-overlay" onclick="toggleMenu()"></div>
+  <aside id="mobileDrawer" class="mobile-drawer">
+    <div class="drawer-head"><span>MENU GAMING</span><button onclick="toggleMenu()">×</button></div>
+    <a href="#accueil" onclick="toggleMenu()">🏠 <span>Accueil</span></a>
+    <a href="#jeux" onclick="toggleMenu()">🕹️ <span>Jeux</span><b>NEW</b></a>
+    <a href="#defis" onclick="toggleMenu()">🎮 <span>Défis</span></a>
+    <a href="#recompenses" onclick="toggleMenu()">🪙 <span>PX & récompenses</span></a>
+    <a href="#classement" onclick="toggleMenu()">🏆 <span>Classement</span></a>
+    <a href="#aide" onclick="toggleMenu()">❓ <span>Aide</span></a>
+    <button class="drawer-create" onclick="toggleMenu();openModal()">⚔️ Créer un défi</button>
+  </aside>
+  <nav class="mobile-gaming-nav">
+    <a class="mobile-tab active" href="#accueil"><i>⌂</i><span>Accueil</span></a>
+    <a class="mobile-tab" href="#jeux"><i>🕹️</i><span>Jeux</span></a>
+    <button class="mobile-center" onclick="openModal()"><strong>+</strong><span>Créer</span></button>
+    <a class="mobile-tab" href="#classement"><i>🏆</i><span>Classement</span></a>
+    <a class="mobile-tab" href="#aide"><i>☰</i><span>Menu</span></a>
+  </nav>
+
+  <main>
+    <section id="accueil" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">PLATEFORME GAMING • VERSION DÉMO</p>
+        <h1>DÉFIE.<br><span>JOUE.</span><br><em>GAGNE.</em></h1>
+        <p class="hero-text">Crée ou rejoins des défis privés entre gamers avec des crédits virtuels.</p>
+        <div class="hero-buttons">
+          <button class="btn btn-red" onclick="openModal()">Créer un défi</button>
+          <a class="btn btn-outline" href="#defis">Voir les défis</a>
+        </div>
+        <div class="stats">
+          <div><b>12 458</b><span>Joueurs</span></div>
+          <div><b>843</b><span>Défis actifs</span></div>
+          <div><b>254 890</b><span>PX en jeu</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="scan"></div>
+        <div class="soldier">⚔️</div>
+        <div class="hero-glow red"></div>
+        <div class="hero-glow blue"></div>
+        <div class="hero-card">
+          <small>DÉFI DU JOUR</small>
+          <strong>CALL OF DUTY • 1 VS 1</strong>
+          <span>Pot : 50 000 PX</span>
+          <button class="btn btn-red" onclick="joinChallenge(50000)">Rejoindre</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="jeux" class="section games-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">UNIVERS GAMING</p>
+          <h2>Choisis ton jeu</h2>
+        </div>
+        <span class="pill">🎮 7 jeux disponibles</span>
+      </div>
+      <div id="gamesGrid" class="games-grid"></div>
+    </section>
+
+    <section id="gameProfile" class="game-profile section" style="display:none"></section>
+
+    <section id="recompenses" class="section rewards-section">
+      <div class="section-head"><div><p class="eyebrow">PORTEFEUILLE VIRTUEL</p><h2>PX & récompenses</h2><p class="rewards-intro">Les crédits de démonstration restent virtuels et ne peuvent pas être retirés.</p></div><span class="pill">🪙 Programme de récompenses</span></div>
+      <div class="rewards-layout">
+        <article class="wallet-card">
+          <p class="eyebrow">MON PORTEFEUILLE • CRÉATEUR</p><div class="wallet-total"><span>🪙</span><strong id="balanceLarge">50 000</strong><small>PX</small></div>
+          <div class="wallet-meta"><span>Bonus quotidien</span><strong>+2 000 PX / jour</strong></div>
+          <button id="dailyBonusBtn" class="btn btn-red full" onclick="claimDailyBonus()">🎁 Récupérer mes 2 000 PX</button>
+          <p id="dailyBonusMessage" class="reward-message">Ton bonus quotidien est prêt.</p>
+        </article>
+        <div class="reward-rules">
+          <article class="reward-rule"><span class="rule-icon">👋</span><div><h3>Nouveaux joueurs</h3><p><b>10 000 PX</b> à l'inscription.</p></div></article>
+          <article class="reward-rule"><span class="rule-icon">🏆</span><div><h3>4 premiers inscrits</h3><p><b>30 000 PX chacun</b> au total, à la place du bonus standard.</p></div></article>
+          <article class="reward-rule"><span class="rule-icon">👑</span><div><h3>Compte créateur</h3><p><b>50 000 PX</b> de solde initial pour le créateur.</p></div></article>
+          <article class="reward-rule"><span class="rule-icon">📅</span><div><h3>Bonus quotidien</h3><p><b>2 000 PX par jour</b> pour chaque compte admissible.</p></div></article>
+          <article class="reward-rule"><span class="rule-icon">⚡</span><div><h3>Part du créateur</h3><p><b>5 % de chaque récompense</b> est créditée au compte créateur dans cette simulation.</p></div></article>
+        </div>
+      </div>
+      <div class="creator-stats"><div><span>Gains du créateur sur les récompenses</span><strong id="creatorEarnings">0 PX</strong></div><div><span>Inscrits simulés</span><strong id="registeredCount">0 / 4 premiers</strong></div><button class="btn btn-outline" onclick="simulateNewUser()">＋ Simuler une inscription</button><button class="btn btn-outline" onclick="simulateReward()">⚡ Simuler une récompense de 10 000 PX</button></div>
+      <p class="reward-disclaimer">Prototype uniquement : ces règles sont stockées localement sur cet appareil. Une vraie version nécessitera des comptes utilisateurs, un serveur, un registre de transactions et une protection contre les doubles réclamations.</p>
+    </section>
+
+    <section id="defis" class="section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">MATCHS DISPONIBLES</p>
+          <h2>Défis populaires</h2>
+        </div>
+        <div class="filters">
+          <button class="filter active" onclick="filterGame('Tous', this)">Tous</button>
+          <button class="filter" onclick="filterGame('FPS', this)">FPS</button>
+          <button class="filter" onclick="filterGame('Combat', this)">Combat</button>
+          <button class="filter" onclick="filterGame('Football', this)">Football</button>
+          <button class="filter" onclick="filterGame('Basket', this)">Basket</button>
+        </div>
+      </div>
+      <div id="challengeGrid" class="challenge-grid"></div>
+    </section>
+
+    <section id="classement" class="section dark-section">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">COMPÉTITION</p>
+          <h2>Classement</h2>
+        </div>
+        <span class="pill">🟢 Saison démo</span>
+      </div>
+      <div class="leaderboard">
+        <div class="rank-row header"><span>#</span><span>Joueur</span><span>Victoires</span><span>Taux</span><span>PX</span></div>
+        <div class="rank-row"><span>1</span><span>⚡ Dark_01</span><span>97</span><span>92%</span><b>82 450 PX</b></div>
+        <div class="rank-row"><span>2</span><span>🔥 KingCOD</span><span>89</span><span>89%</span><b>76 200 PX</b></div>
+        <div class="rank-row"><span>3</span><span>🎯 Player7</span><span>84</span><span>87%</span><b>69 850 PX</b></div>
+        <div class="rank-row"><span>4</span><span>👑 Shadow</span><span>79</span><span>85%</span><b>63 400 PX</b></div>
+      </div>
+    </section>
+
+    <section id="aide" class="section">
+      <div class="section-head"><div><p class="eyebrow">BESOIN D'AIDE ?</p><h2>Comment ça marche</h2></div></div>
+      <div class="steps">
+        <div class="step"><b>01</b><h3>Choisis un jeu</h3><p>Sélectionne ton jeu et le mode de défi.</p></div>
+        <div class="step"><b>02</b><h3>Crée ou rejoins</h3><p>Utilise tes crédits PX pour entrer dans un défi.</p></div>
+        <div class="step"><b>03</b><h3>Joue en privé</h3><p>Les joueurs se retrouvent dans leur partie privée.</p></div>
+        <div class="step"><b>04</b><h3>Valide le résultat</h3><p>Le résultat est confirmé ou envoyé en litige.</p></div>
+      </div>
+      <div class="demo-notice">
+        <strong>⚠️ VERSION DÉMO</strong>
+        <p>Les PX sont des crédits virtuels sans valeur monétaire. Aucun dépôt ou retrait réel n'est activé.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="logo"><span>⚡</span> PLAY<span>BET</span></div>
+    <p>© 2026 PLAYBET — Prototype gaming.</p>
+    <span>Crédits virtuels uniquement</span>
+  </footer>
+
+  <div id="modal" class="modal">
+    <div class="modal-box">
+      <button class="close" onclick="closeModal()">×</button>
+      <p class="eyebrow">NOUVEAU DÉFI</p>
+      <h2>Créer un défi</h2>
+      <label>Jeu</label>
+      <select id="game"><option>Call of Duty</option><option>Free Fire</option><option>Fortnite</option><option>Apex Legends</option><option>Tekken</option><option>Mortal Kombat</option><option>EA Sports FC</option><option>NBA 2K</option></select>
+      <label>Mode</label>
+      <select><option>1 VS 1</option><option>2 VS 2</option><option>3 VS 3</option><option>Équipe</option></select>
+      <label>Mise en PX</label>
+      <input id="stake" type="number" min="100" step="100" value="1000">
+      <label>Visibilité</label>
+      <select><option>Public</option><option>Privé — code d'invitation</option></select>
+      <button class="btn btn-red full" onclick="createChallenge()">Publier le défi</button>
+    </div>
+  </div>
+
+
+  <div id="matchRoom" class="match-room">
+    <div class="match-panel">
+      <button class="close" onclick="closeMatchRoom()">×</button>
+      <div class="match-topline"><span class="live-dot"></span> SALON DE MATCH PRIVÉ <span id="matchStatus" class="match-status">EN ATTENTE</span></div>
+      <div class="match-title"><div id="matchGameVisual" class="match-game-visual"><p class="eyebrow">MATCH PRÉPARÉ</p><h2 id="matchGame">CALL OF DUTY</h2><p id="matchMode">1 VS 1 • BO3</p></div><div class="match-code"><small>CODE PRIVÉ</small><strong id="matchCode">PX-7K42</strong><button onclick="copyMatchCode()">Copier</button></div></div>
+      <div class="versus-grid">
+        <div class="player-card ready"><div class="avatar">⚡</div><strong id="playerOne">Dark_01</strong><span>JOUEUR 1</span><b>PRÊT ✓</b></div>
+        <div class="versus">VS<div id="countdown">--:--</div></div>
+        <div class="player-card waiting"><div class="avatar">🎮</div><strong id="playerTwo">En attente...</strong><span>JOUEUR 2</span><b id="opponentState">EN ATTENTE</b></div>
+      </div>
+      <div class="match-info-grid">
+        <div><span>Mise</span><strong id="matchStake">1 000 PX</strong></div>
+        <div><span>Pot du match</span><strong id="matchPot">2 000 PX</strong></div>
+        <div><span>Format</span><strong>PARTIE PRIVÉE</strong></div>
+        <div><span>Statut</span><strong id="matchProgress">En attente du joueur</strong></div>
+      </div>
+      <div class="match-instructions"><b>🎯 COMMENT ÇA MARCHE ?</b><p>Les deux joueurs rejoignent la partie privée dans leur jeu. Quand les deux sont prêts, le compte à rebours démarre.</p></div>
+      <div id="resultPanel" class="result-panel" style="display:none">
+        <div class="result-head"><div><p class="eyebrow">FIN DE MATCH</p><h3>Résultat & validation</h3></div><span id="resultState" class="result-badge">EN ATTENTE</span></div>
+        <p id="resultHelp" class="result-help">Déclare le gagnant. L'autre joueur devra confirmer ou contester.</p>
+        <div class="result-buttons"><button id="winnerOneBtn" class="btn btn-outline" onclick="declareWinnerFromUI('creator')">🏆 Joueur 1 gagne</button><button id="winnerTwoBtn" class="btn btn-outline" onclick="declareWinnerFromUI('opponent')">🏆 Joueur 2 gagne</button></div>
+        <div id="evidenceBox" class="evidence-box">
+          <label>Preuve / commentaire</label><textarea id="evidenceText" placeholder="Ex. Capture du score, résultat affiché dans le jeu..."></textarea>
+          <button class="btn btn-outline" onclick="addEvidenceUI()">📎 Ajouter la preuve</button>
+        </div>
+        <div id="disputeBox" class="dispute-box" style="display:none"><button class="btn btn-red" onclick="openDisputeUI()">🚨 Contester le résultat</button></div>
+      </div>
+      <div class="match-actions"><button class="btn btn-outline" onclick="closeMatchRoom()">Quitter</button><button id="launchBtn" class="btn btn-red" onclick="launchMatch()">⚡ Lancer la partie</button></div>
+      <p class="match-demo-note">Prototype : les PX sont virtuels. Les preuves sont enregistrées côté serveur pour préparer le futur système de modération.</p>
+    </div>
+  </div>
+
+
+  <div id="adminPanel" class="admin-panel" style="display:none">
+    <div class="admin-box"><button class="close" onclick="closeAdminPanel()">×</button><p class="eyebrow">CONTRÔLE CRÉATEUR</p><h2>Litiges PLAYBET</h2><div id="adminDisputes"></div></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
+<!-- AUTH / ACCOUNT -->
+<div id="authModal" class="modal">
+  <div class="modal-box auth-box">
+    <button class="close" onclick="closeAuth()">×</button>
+    <p class="eyebrow">COMPTE PLAYBET</p><h2 id="authTitle">Connexion</h2>
+    <div class="auth-tabs"><button class="active" onclick="setAuthMode('login')">Connexion</button><button onclick="setAuthMode('register')">Créer un compte</button></div>
+    <label>Pseudo</label><input id="authPseudo" type="text" autocomplete="username" placeholder="Ton pseudo">
+    <label>Mot de passe</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="6 caractères minimum">
+    <button class="btn btn-red full" onclick="submitAuth()" id="authSubmit">Se connecter</button>
+    <p id="authMessage" class="reward-message"></p>
+  </div>
+</div>
